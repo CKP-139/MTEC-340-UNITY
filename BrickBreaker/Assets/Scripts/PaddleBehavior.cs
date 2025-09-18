@@ -27,9 +27,23 @@ public class PaddleBehavior : MonoBehaviour
         }
         transform.position += new Vector3(movement * Time.deltaTime, 0.0f, 0.0f);
     }
-    void OnCollisionEnter(Collision collision)
+    /*void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.gameObject.name);
+        float movement = 0.0f;
+        if (collision.gameObject.name == "WallL")
+        {
+            movement += Speed;
+        }
+        if (collision.gameObject.name == "WallR")
+        {
+            movement -= Speed;
+        }
+        transform.position += new Vector3(movement * Time.deltaTime, 0.0f, 0.0f);
+    }*/
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log(collision.gameObject.name); 
         float movement = 0.0f;
         if (collision.gameObject.name == "WallL")
         {
