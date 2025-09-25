@@ -2,30 +2,32 @@ using UnityEngine;
 
 public class PaddleBehavior : MonoBehaviour
 {
+    [Range(1.0f,10.0f)]
     public float Speed = 5.0f;
 
-    public KeyCode LeftDirection;
-    public KeyCode RightDirection;
+    [SerializeField] private KeyCode _LeftDirection;
+    [SerializeField] private KeyCode _RightDirection;
 
+    private float _direction;
+    private Rigidbody2D _rb;
     // Start is called before the first frame update
     void Start()
     {
-
+        _rb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        float movement = 0.0f;
-        if (Input.GetKey(LeftDirection))
-        {
-            movement -= Speed;
-        }
-        if (Input.GetKey(RightDirection))
-        {
-            movement += Speed;
-        }
-        transform.position += new Vector3(movement * Time.deltaTime, 0.0f, 0.0f);
+        _rb.velocity = _direction * new Vector2(Speed, 0.0f);
+    }
+    // Update is called once per frame
+   void Update()
+    {
+        _direction = 0.0f;
+        if (Input.GetKey(_LeftDirection))
+            _direction -= 1.0f;
+            
+        if (Input.GetKey(_RightDirection))
+            _direction += 1.0f;
     }
     /*void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,7 +42,7 @@ public class PaddleBehavior : MonoBehaviour
             movement -= Speed;
         }
         transform.position += new Vector3(movement * Time.deltaTime, 0.0f, 0.0f);
-    }*/
+    }
     void OnTriggerStay2D(Collider2D collision)
     {
         Debug.Log(collision.gameObject.name); 
@@ -54,5 +56,5 @@ public class PaddleBehavior : MonoBehaviour
             movement -= Speed;
         }
         transform.position += new Vector3(movement * Time.deltaTime, 0.0f, 0.0f);
-    }
+    }*/
 }
